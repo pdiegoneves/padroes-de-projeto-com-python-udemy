@@ -1,4 +1,6 @@
 from datetime import datetime
+from typing import Optional
+
 
 class Pessoa:
     def __init__(self: object, nome: str) -> None:
@@ -13,24 +15,26 @@ class Pessoa:
         return f"{self.__class__.__name__} <{id(self)}>: {self.__nome}"
     
 class Carro:
-    def __init__(self: object, is_sedan: bool = False) -> None:
+    def __init__(self, is_sedan: bool = False) -> None:
         self.__is_sedan = is_sedan
         self.__velocidade = 0
-        self.__motorista = None
+        self.__motorista: Optional[Pessoa] = None
+
 
     def __str__(self) -> str:
         if self.__motorista:
             return f"Carro do(a) {self.__motorista}"
         return "Carro sem motorista"
         
-    def digitir(self: object, motorista: Pessoa, velocidade: int) -> None:
+    def digirir(self, motorista: Pessoa, velocidade: int) -> None:
         self.__motorista = motorista
         self.acelerar(velocidade)
 
-    def acelerar(self: object, velocidade: int) -> None:
+    def acelerar(self, velocidade: int) -> None:
         self.__velocidade += velocidade
+        print(f"Acelerando... normal {self.__velocidade}")   
 
-    def parar(self: object) -> None:
+    def parar(self) -> None:
         self.__velocidade = 0
 
     
@@ -39,5 +43,6 @@ if __name__ == "__main__":
     fusca = Carro()
     print(angelina)
     print(fusca)
-    fusca.digitir(angelina, 100)
+    fusca.digirir(angelina, 100)
+    
     print(fusca.__dict__)
